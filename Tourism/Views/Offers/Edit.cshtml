@@ -1,0 +1,61 @@
+﻿@model Tourism.Models.Offer
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Offer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TextOfOffer" class="control-label"></label>
+                <input asp-for="TextOfOffer" class="form-control" />
+                <span asp-validation-for="TextOfOffer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfOfferFrom" class="control-label"></label>
+                <input asp-for="DateOfOfferFrom" class="form-control" />
+                <span asp-validation-for="DateOfOfferFrom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfOfferTo" class="control-label"></label>
+                <input asp-for="DateOfOfferTo" class="form-control" />
+                <span asp-validation-for="DateOfOfferTo" class="text-danger"></span>
+            </div>
+            <div hidden class="form-group">
+                <label asp-for="DateOfOffer" class="control-label"></label>
+                <input asp-for="DateOfOffer" class="form-control" />
+                <span asp-validation-for="DateOfOffer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div hidden class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <input asp-for="UserId" class="form-control" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
