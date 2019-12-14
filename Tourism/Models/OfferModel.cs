@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tourism.Models
 {
+    //TODO: удалить
     public class OfferModel
     {
         [Required(ErrorMessage = "Не указан город")]

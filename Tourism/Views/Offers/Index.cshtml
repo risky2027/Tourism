@@ -1,49 +1,55 @@
 ﻿@model IEnumerable<Tourism.Models.Offer>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Список предложений";
 }
 
-<h2>Index</h2>
+<div class="container">
+    <h2>Список предложений</h2>
 
-
-@if (User.IsInRole("guide"))
-{
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-}
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.City)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TextOfOffer)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateOfOfferFrom)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateOfOfferTo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateOfOffer)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User.Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    @if (User.IsInRole("guide"))
+    {
+        <p>
+            <a asp-action="Create">Создать новое предложение</a>
+        </p>
+    }
+    <table class="table">
+        <thead>
             <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TypeOffer.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.City)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TextOfOffer)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateOfOfferFrom)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateOfOfferTo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateOfOffer)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User.Name)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeOffer.Name)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.City)
                 </td>
@@ -68,15 +74,16 @@
                 <td>
                     @if (User.IsInRole("guide"))
                     {
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a>
                     }
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    @*<a asp-action="Details" asp-route-id="@item.Id">Подробнее</a>*@
                     @if (User.IsInRole("guide"))
                     {
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
                     }
                 </td>
             </tr>
-        }
-    </tbody>
-</table>
+            }
+        </tbody>
+    </table>
+</div>

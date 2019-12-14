@@ -27,7 +27,7 @@ namespace Tourism.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterModel model)
+        public async Task<IActionResult> Register(RegisterModel model, string role)
         {
             if (ModelState.IsValid)
             {
@@ -35,8 +35,9 @@ namespace Tourism.Controllers
                 if (user == null)
                 {
                     // добавляем пользователя в бд
-                    user = new User { Name=model.Name, Email = model.Email, Password = model.Password };
-                    Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == model.CategoryList.ToString());
+                    user = new User { Name=model.Name, Phone = model.Phone, Email = model.Email, Password = model.Password };
+
+                    Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == role);
                     if (userRole != null)
                         user.Role = userRole;
 
@@ -45,10 +46,13 @@ namespace Tourism.Controllers
 
                     await Authenticate(user); // аутентификация
 
-                    return RedirectToAction("Index", "Offers");
+                    if (user.Role.Name.ToString() == "guide")
+                        return RedirectToAction("Index", "Offers");
+                    else
+                        return RedirectToAction("Index", "Home");
                 }
                 else
-                    ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+                    ModelState.AddModelError("", "Введенные данные некорректны");
             }
             return View(model);
         }
@@ -72,7 +76,10 @@ namespace Tourism.Controllers
                 {
                     await Authenticate(user); // аутентификация
 
-                    return RedirectToAction("Index", "Offers");
+                    if (user.Role.Name.ToString() == "guide")
+                        return RedirectToAction("Index", "Offers");
+                    else
+                        return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("", "Некорректные логин и(или) пароль");
             }
@@ -93,9 +100,10 @@ namespace Tourism.Controllers
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
 
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            Response.Cookies.Delete("ApplicationCookie");
+            //Response.Cookies.Delete("ApplicationCookie");
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             //await HttpContext.Authentication.SignOutAsync("Cookies");
             return RedirectToAction("Login", "Account");
         }

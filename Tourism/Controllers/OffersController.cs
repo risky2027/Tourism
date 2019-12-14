@@ -21,7 +21,7 @@ namespace Tourism.Controllers
         // GET: Offers
         public async Task<IActionResult> Index()
         {
-            var applicationContext = _context.Offers.Include(o => o.User);
+            var applicationContext = _context.Offers.Include(u => u.User).Include(t => t.TypeOffer).Where(u => u.User.Email == User.Identity.Name);
             return View(await applicationContext.ToListAsync());
         }
 
@@ -57,12 +57,15 @@ namespace Tourism.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //public async Task<IActionResult> Create([Bind("Id,City,TextOfOffer,DateOfOfferFrom,DateOfOfferTo,DateOfOffer,Price,UserId")] Offer offer)
-        public async Task<IActionResult> Create(Offer offer)
+        public async Task<IActionResult> Create(Offer offer, string typeOffer)
         {
             if (ModelState.IsValid)
             {
+                TypeOffer type = await _context.TypeOffers.FirstOrDefaultAsync(t => t.Name == typeOffer);
+
                 Offer newOffer = new Offer
                 {
+                    TypeOffer = type,
                     City = offer.City,
                     DateOfOffer = DateTime.Now,
                     DateOfOfferFrom = offer.DateOfOfferFrom,
@@ -101,7 +104,7 @@ namespace Tourism.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,City,TextOfOffer,DateOfOfferFrom,DateOfOfferTo,DateOfOffer,Price,UserId")] Offer offer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,City,TextOfOffer,DateOfOfferFrom,DateOfOfferTo,DateOfOffer,Price,UserId")] Offer offer, string typeOffer)
         {
             if (id != offer.Id)
             {
@@ -112,6 +115,9 @@ namespace Tourism.Controllers
             {
                 try
                 {
+                    TypeOffer type = await _context.TypeOffers.FirstOrDefaultAsync(t => t.Name == typeOffer);
+                    offer.TypeOffer = type;
+
                     _context.Update(offer);
                     await _context.SaveChangesAsync();
                 }
