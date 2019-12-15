@@ -35,7 +35,7 @@ namespace Tourism.Controllers
                 if (user == null)
                 {
                     // добавляем пользователя в бд
-                    user = new User { Name=model.Name, Phone = model.Phone, Email = model.Email, Password = model.Password };
+                    user = new User { Name = model.Name, Phone = model.Phone, Email = model.Email, Password = model.Password };
 
                     Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == role);
                     if (userRole != null)
@@ -106,6 +106,59 @@ namespace Tourism.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             //await HttpContext.Authentication.SignOutAsync("Cookies");
             return RedirectToAction("Login", "Account");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Settings()
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == User.Identity.Name);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            UserSettingsModel userModel = new UserSettingsModel();
+            userModel.Email = user.Email;
+            userModel.Name = user.Name;
+            userModel.Phone = user.Phone;
+
+            return View(userModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Settings(UserSettingsModel userModel)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == User.Identity.Name);
+
+                    //TODO: нужно перелогиниваться
+                    //if (user.Email != userModel.Email)
+                    //    await Authenticate(user); // повторная аутентификация, если сменен email
+
+                    user.Email = userModel.Email;
+                    user.Name = userModel.Name;
+                    user.Phone = userModel.Phone;
+
+                    _context.Update(user);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return NotFound();
+                }
+                //return RedirectToAction(nameof(Settings));
+            }
+            return View(userModel);
+        }
+
+        //TODO: сделать
+        public async Task<IActionResult> ChangePassword()
+        {
+            return View();
         }
     }
 }

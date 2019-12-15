@@ -1,0 +1,44 @@
+﻿@model Tourism.Models.UserSettingsModel
+
+
+<div class="container set">
+    <h2>Настройки</h2>
+
+    <form asp-action="Settings" asp-controller="Account" asp-anti-forgery="true">
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+        <div>
+            <div>
+                <label asp-for="Name">Введите Имя</label><br />
+                <input type="text" asp-for="Name" class="rounded border border-info" />
+                <span asp-validation-for="Name" />
+            </div>
+            <div>
+                <label asp-for="Email">Введите Email</label><br />
+                <input type="text" asp-for="Email" class="rounded border border-info" />
+                <span asp-validation-for="Email" />
+            </div>
+            <div>
+                <label asp-for="Phone">Введите номер телефона</label><br />
+                <input type="text" asp-for="Phone" class="rounded border border-info" />
+                <span asp-validation-for="Phone" />
+            </div>
+            <br />
+            <div>
+                <input type="submit" value="Сохранить" class="btn btn-outline-dark" />
+            </div>
+        </div>
+    </form>
+    <div>
+        <hr />
+        <a asp-action="ChangePassword" asp-controller="Account">Смена пароля</a>
+        <br />
+        @if (User.IsInRole("guide"))
+        {
+            <a asp-controller="Offers" asp-action="Index">Вернуться к списку</a>
+        }
+        else
+        {
+            <a asp-controller="Home" asp-action="Index">Вернуться к списку</a>
+        }
+    </div>
+</div>
