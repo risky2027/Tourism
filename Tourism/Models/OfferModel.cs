@@ -11,11 +11,11 @@ namespace Tourism.Models
     {
         [Required(ErrorMessage = "Не указан город")]
         public string City { get; set; }
-        [Required(ErrorMessage = "Не указано описание тура")]
+        [Required(ErrorMessage = "Не указано описание")]
         public string TextOfOffer { get; set; }
-        [Required(ErrorMessage = "Не указана дата начала тура")]
+        [Required(ErrorMessage = "Не указана дата начала")]
         public DateTime DateOfOfferFrom { get; set; }
-        [Required(ErrorMessage = "Не указана дата окончания тура")]
+        [Required(ErrorMessage = "Не указана дата окончания")]
         public DateTime DateOfOfferTo { get; set; }
         [Required(ErrorMessage = "Не указана стоимость")]
         public int Price { get; set; }

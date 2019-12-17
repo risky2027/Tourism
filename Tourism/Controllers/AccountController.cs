@@ -135,11 +135,11 @@ namespace Tourism.Controllers
                 {
                     var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == User.Identity.Name);
 
-                    //TODO: нужно перелогиниваться
+                    //TODO: нужно перелогиниваться, либо убрать email
                     //if (user.Email != userModel.Email)
                     //    await Authenticate(user); // повторная аутентификация, если сменен email
 
-                    user.Email = userModel.Email;
+                    //user.Email = userModel.Email;
                     user.Name = userModel.Name;
                     user.Phone = userModel.Phone;
 

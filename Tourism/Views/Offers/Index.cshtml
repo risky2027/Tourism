@@ -37,9 +37,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Price)
                 </th>
-                <th>
+                @*<th>
                     @Html.DisplayNameFor(model => model.User.Name)
-                </th>
+                </th>*@
                 <th></th>
             </tr>
         </thead>
@@ -68,9 +68,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.User.Name)
-                </td>
+                </td>*@
                 <td>
                     @if (User.IsInRole("guide"))
                     {

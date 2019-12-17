@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<Tourism.Models.Offer>
 
 @{
-    ViewData["Title"] = "Список предложений для пользователей";
+    ViewData["Title"] = "Список доступных предложений для туристов";
 }
 
 <div id="headerwrap">
     <div class="col-lg-6 offset-3 hw">
-        <h2 id="desc">Путешествия по регионам России!</h2>
+        <h2 id="desc">Путешествия по Республике Татарстан!</h2>
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -18,10 +18,10 @@
                     <img class="d-block w-100" src="~/images/kazan.jpg" alt="First slide">
                 </div>
                 <div class="carousel-item">
-                    <img class="d-block w-100" src="~/images/moscow.jpg" alt="Second slide">
+                    <img class="d-block w-100" src="~/images/kazan2.jpg" alt="Second slide">
                 </div>
                 <div class="carousel-item">
-                    <img class="d-block w-100" src="~/images/spb.jpg" alt="Second slide">
+                    <img class="d-block w-100" src="~/images/kazan3.jpg" alt="Second slide">
                 </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -37,7 +37,7 @@
 </div>
 <hr />
 <div class="container w">
-    <h2 id="desc">Список туров и фотосессий для туристов</h2>
+    <h2 id="desc">Список доступных предложений</h2>
     <div class="row wrTours">
         @foreach (var item in Model)
         {
@@ -46,16 +46,15 @@
                     <img class="card-img-top" src="~/images/kazan2.jpg" />
                     <div class="card-body">
                         <h4 class="card-title">
-                            <b>Гид:</b>
-                            @Html.DisplayFor(modelItem => item.User.Name)<br />
-                            <b>Номер телефона: </b>
-                            @Html.DisplayFor(modelItem => item.User.Phone)<br />
+                            <b>@Html.DisplayFor(modelItem => item.User.Name)</b><br />
                         </h4>
                         <p class="card-text">
-                            <b>Предложение:</b>
-                            @Html.DisplayFor(modelItem => item.TypeOffer.Name)<br />
+                            <b>Номер телефона: </b>
+                            @Html.DisplayFor(modelItem => item.User.Phone)<br />
                             <b>Город:</b>
                             @Html.DisplayFor(modelItem => item.City)<br />
+                            <b>Предложение:</b>
+                            @Html.DisplayFor(modelItem => item.TypeOffer.Name)<br />
                             <b>Описание:</b>
                             @Html.DisplayFor(modelItem => item.TextOfOffer)<br />
                             <b>Дата начала:</b>
@@ -65,7 +64,7 @@
                             <b>Стоимость:</b>
                             @Html.DisplayFor(modelItem => item.Price) руб.<br />
                         </p>
-                        <a href="#!" class="btn btn-primary">Подробнее</a>
+                        <a href="#!" class="btn btn-primary">Заказать</a>
                     </div>
                 </div>
             </div>

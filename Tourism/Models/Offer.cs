@@ -14,7 +14,7 @@ namespace Tourism.Models
         [DisplayName("Город")]
         public string City { get; set; }
         [Required(ErrorMessage = "Не указано описание")]
-        [DisplayName("Описание тура")]
+        [DisplayName("Описание")]
         public string TextOfOffer { get; set; }
         [Required(ErrorMessage = "Не указана дата начала")]
         [DisplayName("Дата начала")]
@@ -25,7 +25,7 @@ namespace Tourism.Models
         [DisplayName("Дата создания")]
         public DateTime DateOfOffer { get; set; }
         [Required(ErrorMessage = "Не указана стоимость")]
-        [DisplayName("Стоимость")]
+        [DisplayName("Стоимость (руб)")]
         public int Price { get; set; }
         public int? UserId { get; set; }
         public User User { get; set; }
